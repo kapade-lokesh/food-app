@@ -28,7 +28,6 @@ const RegisterController = () => {
     }
 
     const response = dispatch(registerUser(user));
-    console.log(response);
   };
 
   const handleInput = (e) => {

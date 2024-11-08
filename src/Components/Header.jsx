@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Dialog, DialogPanel } from "@headlessui/react";
+import {
+  Dialog,
+  DialogPanel,
+  Menu,
+  MenuButton,
+  MenuItems,
+  MenuItem,
+} from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const navigation = [
-  { name: "Product", href: "#" },
+  { name: "Home", href: "/" },
   { name: "Features", href: "#" },
   { name: "Marketplace", href: "#" },
   { name: "Company", href: "#" },
@@ -11,6 +19,8 @@ const navigation = [
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { islogin, data } = useSelector((state) => state.Auth);
+  console.log(islogin);
   return (
     <div>
       <div className="bg-white">
@@ -20,13 +30,13 @@ const Header = () => {
             className="flex items-center justify-between p-6 lg:px-8"
           >
             <div className="flex  lg:flex-1">
-              <a href="#" className="-m-1.5 p-1.5">
+              <Link href="#" className="-m-1.5 p-1.5">
                 <img
                   alt=""
                   src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
                   className="h-8 w-auto"
                 />
-              </a>
+              </Link>
               <p className="ms-6 text-2xl font-semibold">
                 Foo<span className=" text-indigo-600">DY</span>e
               </p>
@@ -43,22 +53,29 @@ const Header = () => {
             </div>
             <div className="hidden lg:flex lg:gap-x-12">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-sm font-semibold leading-6 text-gray-900"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </div>
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-              <Link
-                to="/signup"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Log in <span aria-hidden="true">&rarr;</span>
-              </Link>
+
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
+              {islogin ? (
+                <ProfileMenu data={data}></ProfileMenu>
+              ) : (
+                <div>
+                  <Link
+                    to="/signup"
+                    className="text-sm font-semibold leading-6 text-gray-900"
+                  >
+                    Log in <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </div>
+              )}
             </div>
           </nav>
           <Dialog
@@ -118,3 +135,49 @@ const Header = () => {
 };
 
 export default Header;
+
+const ProfileMenu = ({ data }) => {
+  return (
+    <div>
+      <Menu as="div" className="relative ml-3">
+        <div>
+          <MenuButton className="ring-2 ring-gray-400 bg-black text-white flex  justify-center rounded-full h-8 w-8  ">
+            <span className="h-8 w-8 rounded-full text-xl font-semibold ">
+              {" "}
+              {data.name.slice(0, 1)}{" "}
+            </span>
+          </MenuButton>
+        </div>
+        <MenuItems
+          transition
+          className="absolute   right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none   data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+        >
+          <MenuItem>
+            <Link
+              to="/profile"
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+            >
+              Your Profile
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+            >
+              Settings
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              href="#"
+              className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:outline-none"
+            >
+              Sign out
+            </Link>
+          </MenuItem>
+        </MenuItems>
+      </Menu>
+    </div>
+  );
+};

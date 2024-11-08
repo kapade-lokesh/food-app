@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AxiosInstance from "../../helpers/AxiosIntance";
-import axios from "axios";
 import { toast } from "react-toastify";
-import { VscGlobe } from "react-icons/vsc";
 
 const initialState = {
-  islogin: false,
-  data: {},
-  role: "",
+  islogin: localStorage.getItem("isLoggedin") === "true" || false,
+  data: JSON.parse(localStorage.getItem('data')) || {},
+  role: localStorage.getItem("role") || "USER",
 };
 
 export const registerUser = createAsyncThunk(
@@ -15,28 +13,52 @@ export const registerUser = createAsyncThunk(
   async (newuser) => {
     console.log("register user called..", newuser);
     try {
-      const response = AxiosInstance.post("/user/register", newuser);
+      const response = AxiosInstance.post(`/user/register`, newuser);
       toast.promise(response, {
         pending: "Registering...",
         success: {
           render({ data }) {
-            console.log(data);
             return data?.data?.message;
           },
         },
         error: {
           render({ data }) {
-            console.log(data);
-            return data?.response?.data?.message?.massage;
+            return data?.response?.data?.message;
           },
         },
       });
-      return user.data;
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 );
+
+
+export const loginUser = createAsyncThunk('loginUser', async (credentials) => {
+  try {
+    const response = AxiosInstance.post("auth/login", credentials);
+    toast.promise(response, {
+      pending: "sign in...",
+
+      success: {
+        render({ data }) {
+          console.log(data);
+          return data?.data?.message;
+        }
+      },
+
+      error: {
+        render({ data }) {
+          console.log(data.response);
+          return data?.response?.data?.message;
+        }
+      }
+    })
+    return (await response)?.data?.data;
+  } catch (error) {
+
+  }
+})
 
 const AuthSlice = createSlice({
   name: "AuthSlice",
@@ -44,7 +66,16 @@ const AuthSlice = createSlice({
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(registerUser.fulfilled, (state, action) => {});
+    builder
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.islogin = true,
+          state.role = "USER",
+          state.data = action?.payload,
+
+          localStorage.setItem('isLoggedin', true)
+        localStorage.setItem('data', JSON.stringify(action?.payload))
+        localStorage.setItem('role', action?.payload?.role)
+      })
   },
 });
 

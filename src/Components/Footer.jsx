@@ -124,7 +124,7 @@ const Footer = () => {
               </div>
             </div>
           </div>
-          <div className="border-t-2 flex  py-4 mt-8 ">
+          <div className="border-t-2 flex  py-4 mt-6 ">
             {" "}
             &copy; All copyrights reserved at fooDYe.com 2024
           </div>

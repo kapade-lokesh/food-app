@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Dialog,
   DialogPanel,
@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 const navigation = [
   { name: "Home", href: "/" },
-  { name: "Features", href: "#" },
+  { name: "Cart", href: "/cart" },
   { name: "Marketplace", href: "#" },
   { name: "Company", href: "#" },
 ];
@@ -20,7 +20,6 @@ const navigation = [
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { islogin, data } = useSelector((state) => state.Auth);
-
   return (
     <div>
       <div className="bg-white">
@@ -150,7 +149,7 @@ const ProfileMenu = ({ data }) => {
           <MenuButton className="ring-2 ring-gray-400 bg-black text-white flex  justify-center rounded-full h-8 w-8  ">
             <span className="h-8 w-8 rounded-full text-xl font-semibold ">
               {" "}
-              {data?.user?.name.slice(0, 1)}{" "}
+              {data && data?.name.slice(0, 1)}{" "}
             </span>
           </MenuButton>
         </div>

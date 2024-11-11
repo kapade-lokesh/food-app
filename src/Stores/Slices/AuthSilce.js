@@ -12,7 +12,6 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "registerUser",
   async (newuser) => {
-    console.log("register user called..", newuser);
     try {
       const response = AxiosInstance.post(`/user/register`, newuser);
       toast.promise(response, {
@@ -64,8 +63,6 @@ export const loginUser = createAsyncThunk(
       if (tokenExpiry && !isNaN(tokenExpiry)) {
         const remainingTime = tokenExpiry - Date.now();
 
-        console.log("Remaining time in milliseconds:", remainingTime);
-
         setTimeout(() => {
           dispatch(logoutUser());
         }, remainingTime);
@@ -93,7 +90,7 @@ const AuthSlice = createSlice({
         console.log(action.payload);
         (state.islogin = true),
           (state.role = "USER"),
-          (state.data = action?.payload),
+          (state.data = action?.payload?.user),
           localStorage.setItem("isLoggedin", true);
         localStorage.setItem("data", JSON.stringify(action?.payload?.user));
         localStorage.setItem("role", action?.payload?.user?.role);

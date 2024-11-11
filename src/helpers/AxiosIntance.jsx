@@ -19,7 +19,6 @@ AxiosInstance.interceptors.response.use(
         localStorage.removeItem("data");
         localStorage.removeItem("role");
 
-    
         alert("Session expired. Please log in again.");
         window.location.href = "/signup";
       }

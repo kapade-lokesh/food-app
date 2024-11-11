@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../Layout/Layout";
 import { useSelector } from "react-redux";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
@@ -23,7 +23,9 @@ const Profile = () => {
 
               <div>
                 <span className="font-light text-sm ms-10">Hello, </span>
-                <span>{data ? `${data?.name} ` : " Welcome to profile"}</span>
+                <span>
+                  {data ? `${data && data.name} ` : " Welcome to profile"}
+                </span>
               </div>
             </div>
           </div>

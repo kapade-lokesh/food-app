@@ -20,7 +20,7 @@ const navigation = [
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { islogin, data } = useSelector((state) => state.Auth);
-  console.log(islogin);
+
   return (
     <div>
       <div className="bg-white">
@@ -117,12 +117,18 @@ const Header = () => {
                     ))}
                   </div>
                   <div className="py-6">
-                    <Link
-                      to="/signup"
-                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                    >
-                      Log in
-                    </Link>
+                    {islogin ? (
+                      <ProfileMenu data={data}></ProfileMenu>
+                    ) : (
+                      <div>
+                        <Link
+                          to="/signup"
+                          className="text-sm font-semibold leading-6 text-gray-900"
+                        >
+                          Log in <span aria-hidden="true">&rarr;</span>
+                        </Link>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -144,7 +150,7 @@ const ProfileMenu = ({ data }) => {
           <MenuButton className="ring-2 ring-gray-400 bg-black text-white flex  justify-center rounded-full h-8 w-8  ">
             <span className="h-8 w-8 rounded-full text-xl font-semibold ">
               {" "}
-              {data.name.slice(0, 1)}{" "}
+              {data?.user?.name.slice(0, 1)}{" "}
             </span>
           </MenuButton>
         </div>

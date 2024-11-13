@@ -1,6 +1,6 @@
 import react from "react";
 import pizza from "../assets/Images/pizza2.png";
-import Layout from "../Layout/Layout";
+import Layout from "../Components/Layouts/Layout";
 const Hero = () => {
   return (
     <Layout>

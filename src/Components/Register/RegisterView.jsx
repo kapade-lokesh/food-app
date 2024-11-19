@@ -93,6 +93,51 @@ const RegisterView = ({ handleInput, handleSubmit }) => {
               </div>
             </div>
 
+            <div className="flex gap-10">
+              <p className="block text-sm font-medium leading-6 text-gray-900">
+                Gender
+              </p>
+              <div>
+                <label
+                  htmlFor="Address"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Male
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="gender"
+                    name="gender"
+                    type="radio"
+                    value="male"
+                    onChange={handleInput}
+                    autoComplete="email"
+                    className="size-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label
+                  htmlFor="Address"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Female
+                </label>
+                <div className="mt-2">
+                  <input
+                    id="gender"
+                    name="gender"
+                    type="radio"
+                    value="female"
+                    onChange={handleInput}
+                    autoComplete="email"
+                    className="size-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  />
+                </div>
+              </div>
+            </div>
+
             <div className="flex gap-5">
               <div>
                 <div className="flex items-center justify-between">

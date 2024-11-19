@@ -3,11 +3,14 @@ import RegisterView from "./RegisterView";
 import { toast } from "react-toastify";
 import { registerUser } from "../../Stores";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const RegisterController = () => {
   const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const redirect = useNavigate();
   const { username, email, password, address, mobile, conform } = user;
   const handleSubmit = (e) => {
+    console.log(user);
     e.preventDefault();
 
     if (
@@ -15,7 +18,7 @@ const RegisterController = () => {
         (field) => field == null || field.trim() === ""
       )
     ) {
-      return toast.error("please fill all fields", { autoClose: 5000 });
+      return toast.error("please fill all fields");
     }
 
     if (!email.match(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)) {
@@ -27,7 +30,7 @@ const RegisterController = () => {
       });
     }
 
-    const response = dispatch(registerUser(user));
+    dispatch(registerUser({ user, redirect }));
   };
 
   const handleInput = (e) => {

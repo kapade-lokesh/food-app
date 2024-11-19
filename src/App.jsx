@@ -11,7 +11,7 @@ function App() {
     <>
       <div>
         <Routing />
-        <ToastContainer autoClose={800} />
+        <ToastContainer autoClose={900} />
       </div>
     </>
   );

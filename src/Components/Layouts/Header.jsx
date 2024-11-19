@@ -142,6 +142,7 @@ const Header = () => {
 export default Header;
 
 const ProfileMenu = ({ data }) => {
+  console.log(data);
   return (
     <div>
       <Menu as="div" className="relative ml-3">
@@ -149,7 +150,7 @@ const ProfileMenu = ({ data }) => {
           <MenuButton className="ring-2 ring-gray-400 bg-black text-white flex  justify-center rounded-full h-8 w-8  ">
             <span className="h-8 w-8 rounded-full text-xl font-semibold ">
               {" "}
-              {data && data?.name.slice(0, 1)}{" "}
+              {data && data?.username.slice(0, 1)}{" "}
             </span>
           </MenuButton>
         </div>

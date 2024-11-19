@@ -12,7 +12,7 @@ const Profilehead = ({ data }) => {
         <div className="leading-10">
           <span className="font-light text-sm">Hello, </span>
           <span className="font-semibold">
-            {data ? `${data && data.name} ` : " Welcome to profile"}
+            {data ? `${data && data.username} ` : " Welcome to profile"}
           </span>
         </div>
       </div>
